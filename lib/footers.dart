@@ -15,16 +15,273 @@ class HomeMainScreen extends StatelessWidget {
   }
 }
 
-class NetworkScreen extends StatelessWidget {
+// ---------------- NETWORK SCREEN ------------------
+
+
+
+class NetworkScreen extends StatefulWidget {
   const NetworkScreen({super.key});
 
   @override
+  State<NetworkScreen> createState() => _NetworkScreenState();
+}
+
+class _NetworkScreenState extends State<NetworkScreen> {
+
+  double profileScore = 0.15; // 15% score example
+  int connections = 1;
+  int requests = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("🤝 NETWORK SCREEN", style: TextStyle(color: Colors.white, fontSize: 25)),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.arrow_back,
+                          color: Colors.white, size: 26),
+                    ),
+                    const SizedBox(width: 12),
+            
+            
+            
+
+            // ---------- TITLE ----------
+            const Text(
+              "Networking",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // ---------- AI MATCHMAKING CARD ----------
+            matchmakingCard(),
+
+            const SizedBox(height: 25),
+
+            // ---------- PEOPLE ATTENDING ----------
+            attendingCard(),
+
+            const SizedBox(height: 25),
+
+            // ---------- CONNECTIONS + REQUESTS ----------
+            connectionRequestRow(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ----------------- MATCHMAKING WIDGET -----------------
+ Widget matchmakingCard() {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      gradient: const LinearGradient(
+        colors: [Color(0xFFCC6E2B), Color(0xFFB94B50)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+        // ---------- LEFT SIDE ----------
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+              const Text(
+                "AI Matchmaking",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              const Text(
+                "Your perfect match is waiting for you!!!",
+                style: TextStyle(color: Colors.white70),
+              ),
+
+              const SizedBox(height: 12),
+
+              Row(
+                children: const [
+                  CircleAvatar(radius: 16, backgroundColor: Colors.white),
+                  SizedBox(width: 6),
+                  CircleAvatar(radius: 16, backgroundColor: Colors.white),
+                  SizedBox(width: 6),
+                  CircleAvatar(radius: 16, backgroundColor: Colors.white),
+                  SizedBox(width: 6),
+                  CircleAvatar(radius: 16, backgroundColor: Colors.white),
+                  SizedBox(width: 6),
+                  Text("+5", style: TextStyle(color: Colors.white)),
+                ],
+              ),
+
+              const SizedBox(height: 14),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Text(
+                  "Complete Profile",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(width: 10),
+
+        // ---------- SCORE CIRCLE ----------
+        SizedBox(
+          width: 70,
+          height: 70,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CircularProgressIndicator(
+                value: profileScore,
+                strokeWidth: 6,
+                backgroundColor: Colors.white24,
+                valueColor: const AlwaysStoppedAnimation(Colors.greenAccent),
+              ),
+              Text(
+                "${(profileScore * 100).toInt()}%",
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+  // ----------------- PEOPLE ATTENDING WIDGET -----------------
+  Widget attendingCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF348FF8), Color(0xFF3BB0E0)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "51,541 People Attending",
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+
+          Row(
+            children: const [
+              CircleAvatar(radius: 18, backgroundColor: Colors.white),
+              SizedBox(width: 5),
+              CircleAvatar(radius: 18, backgroundColor: Colors.white),
+              SizedBox(width: 5),
+              CircleAvatar(radius: 18, backgroundColor: Colors.white),
+              SizedBox(width: 5),
+              CircleAvatar(radius: 18, backgroundColor: Colors.white),
+              SizedBox(width: 5),
+              CircleAvatar(radius: 18, backgroundColor: Colors.white),
+              SizedBox(width: 10),
+              Text("99+", style: TextStyle(color: Colors.white)),
+              Spacer(),
+              Text("View All",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  // ----------------- CONNECTION + REQUEST ROW -----------------
+  Widget connectionRequestRow() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            height: 90,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white12,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("My Connections",
+                    style: TextStyle(color: Colors.white)),
+                const SizedBox(height: 10),
+                Text("$connections connections",
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 16),
+
+        Expanded(
+          child: Container(
+            height: 90,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white12,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Requests",
+                    style: TextStyle(color: Colors.white)),
+                const SizedBox(height: 10),
+                Text("$requests requests",
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
+
+
 
 // ---------------- EVENT SCREEN ------------------
 

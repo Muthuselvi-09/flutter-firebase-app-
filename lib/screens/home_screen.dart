@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:event_management2/headers.dart';
 import 'package:event_management2/footers.dart';
+import 'package:event_management2/widgets/slidercard.dart'; 
+import 'package:event_management2/profile.dart';
+import 'package:event_management2/pass.dart';
+import 'package:event_management2/featuredevent.dart';
+//import '../widgets/slidercard.dart'; 
 
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double profileScore = 0.0;
   
   @override
   Widget build(BuildContext context) {
@@ -157,25 +163,23 @@ const SizedBox(height: 20),
                 const SizedBox(height: 30),
 
                 // ---------- 3. HORIZONTAL SCROLL CARDS ----------
-                SizedBox(
-                  height: 200,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 20),
-                        _promoCard1(),
-                        const SizedBox(width: 15),
-                        _promoCard2(),
-                        const SizedBox(width: 20),
-                      ],
-                    ),
-                  ),
-                ),
+               Column(
+          children: [
+                    const SizedBox(height: 20),
 
-                const SizedBox(height: 20),
+                  // 🔵 Replace old cards with new slider file
+                    SliderCardSection(),
+
+                   const SizedBox(height: 20),
+                   ],
+         ),
+
 
                 // ---------- 4. COMPLETE PROFILE ----------
+              
+
+
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
@@ -202,22 +206,50 @@ const SizedBox(height: 20),
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 6),
-                            SizedBox(
-                              width: 180,
-                              child: Text(
-                                "Your Profile is incomplete. Please update it for better networking!!",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
+                           const SizedBox(height: 6),
+SizedBox(
+  width: 180,
+  child: Text(
+    profileScore < 1.0
+        ? "Your Profile is incomplete. Please update it for better networking!!"
+        : "Thank you for completing your profile!",
+    style: GoogleFonts.poppins(
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      color: Colors.white70,
+    ),
+  ),
+),
+const SizedBox(height: 12),
+
 
                             // COMPLETE BUTTON
-                            Container(
+
+
+
+                            GestureDetector(
+                       onTap: () async {
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (_) => const CompleteProfileScreen()),
+  );
+
+  if (result == true) {
+    setState(() {
+      profileScore = 1.0; // 100%
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Your profile is complete!"),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+},
+
+                              child: Container(
+                      
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(14),
@@ -233,6 +265,7 @@ const SizedBox(height: 20),
                                 ),
                               ),
                             ),
+                            ),
                           ],
                         ),
 
@@ -246,20 +279,22 @@ const SizedBox(height: 20),
                                   height: 70,
                                   width: 70,
                                   child: CircularProgressIndicator(
-                                    value: 0.15,
-                                    strokeWidth: 8,
-                                    backgroundColor: Colors.white24,
-                                    valueColor: AlwaysStoppedAnimation(Color(0xFF4CAF50)),
-                                  ),
+  value: profileScore, // dynamic value
+  strokeWidth: 8,
+  backgroundColor: Colors.white24,
+  valueColor: const AlwaysStoppedAnimation(Color(0xFF4CAF50)),
+),
+
                                 ),
                                 Text(
-                                  "15",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
+  "${(profileScore * 100).toInt()}", // shows 0 to 100
+  style: GoogleFonts.poppins(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+),
+
                               ],
                             ),
                             const SizedBox(height: 8),
@@ -279,67 +314,74 @@ const SizedBox(height: 20),
 
                 const SizedBox(height: 20),
 
-                // ---------- 5. VIEW MY PASS ----------
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF6BC9FF), Color(0xFF4A6BFF)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "View My Pass",
-                              style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "Use the QR ticket to enter the venue",
-                              style: GoogleFonts.poppins(
-                                fontSize: 13,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: Text(
-                            "View",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+             // ---------- 5. VIEW MY PASS ----------
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 20),
+  child: GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ScanPassScreen()),
+      );
+    },
+    child: Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(22),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF6BC9FF), Color(0xFF4A6BFF)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "View My Pass",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "Use the QR ticket to enter the venue",
+                style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
 
-                const SizedBox(height: 30),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Text(
+              "View",
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
+const SizedBox(height: 30),
 
                 // ------------------------------------------------------------
                 // ----------------------- 6. EVENTS ---------------------------
@@ -357,20 +399,30 @@ const SizedBox(height: 20),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "View All",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white70,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          const Icon(Icons.arrow_forward, color: Colors.white70, size: 18),
-                        ],
-                      )
+                   GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EventScreen(),
+      ),
+    );
+  },
+  child: Row(
+    children: [
+      Text(
+        "View All",
+        style: GoogleFonts.poppins(
+          color: Colors.white70,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      const SizedBox(width: 6),
+      const Icon(Icons.arrow_forward, color: Colors.white70, size: 18),
+    ],
+  ),
+),
                     ],
                   ),
                 ),
@@ -396,6 +448,11 @@ const SizedBox(height: 20),
                 // ------------------------------------------------------------
                 // ------------------ 7. FEATURED EVENTS -----------------------
                 // ------------------------------------------------------------
+                
+         
+                
+                
+                
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
@@ -1135,12 +1192,14 @@ Padding(
 
 const SizedBox(height: 35),
 
+// --------------------------------------------------------------------------------------------------------------------
+// ----------------------- END OF CONTENT ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 
 
 
-
-//ithuku mala nama class define panikalam/////................../////////////
+//ithuku mala nama class define panikalam/////................../////////////.........................................
               ],
             ),
           ),
@@ -1813,8 +1872,3 @@ Widget footerNavItem(IconData icon, String label, {VoidCallback? onTap}) {
     ),
   );
 }
-
-
-
-
-
