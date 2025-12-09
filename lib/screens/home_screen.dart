@@ -6,6 +6,15 @@ import 'package:event_management2/widgets/slidercard.dart';
 import 'package:event_management2/profile.dart';
 import 'package:event_management2/pass.dart';
 import 'package:event_management2/featuredevent.dart';
+import 'package:event_management2/schedule.dart';
+import 'package:event_management2/ai_networking.dart';
+import 'package:event_management2/speaker screen/speakers.dart';
+import 'package:event_management2/speaker screen/speaker_details.dart';
+import 'package:event_management2/sponsers screen/sponsor_now_screen.dart';
+import 'package:event_management2/sponsers screen/view_sponsors_screen.dart';
+import 'package:event_management2/finding screen/codingrim_details_screen.dart';
+import 'package:event_management2/finding screen/ZhacommerceDetailsScreen.dart';
+import 'package:event_management2/place/rajapalayam_places.dart';
 //import '../widgets/slidercard.dart'; 
 
 
@@ -35,8 +44,17 @@ bottomNavigationBar: footerNavigationBar(context),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF6A5AE0),
-              Color(0xFFE15ABD),
+Color(0xFF020024),
+Color(0xFF090979),
+Color(0xFF00D4FF),
+
+
+
+
+
+
+
+      
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -448,41 +466,67 @@ const SizedBox(height: 30),
                 // ------------------------------------------------------------
                 // ------------------ 7. FEATURED EVENTS -----------------------
                 // ------------------------------------------------------------
-                
-         
-                
-                
-                
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Featured Events",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+        Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 20),
+  child: Text(
+    "Featured Events",
+    style: GoogleFonts.poppins(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+    ),
+  ),
+),
 
-                const SizedBox(height: 15),
+const SizedBox(height: 15),
 
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      const SizedBox(width: 20),
-                      _featuredEventCard(),
-                      const SizedBox(width: 15),
-                      _featuredEventCard(),
-                      const SizedBox(width: 20),
-                    ],
-                  ),
-                ),
+SizedBox(
+  height: 200,
+  child: ListView(
+    scrollDirection: Axis.horizontal,
+    children: [
+      const SizedBox(width: 20),
 
-                const SizedBox(height: 35),
-                // ------------------------------------------------------------
+      _featuredEventCard(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EventDetailScreen()),
+          );
+        },
+        onViewAllTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EventDetailScreen()),
+          );
+        },
+      ),
+
+      const SizedBox(width: 15),
+
+      _featuredEventCard(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EventDetailScreen()),
+          );
+        },
+        onViewAllTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EventDetailScreen()),
+          );
+        },
+      ),
+
+      const SizedBox(width: 20),
+    ],
+  ),
+),
+
+
+const SizedBox(height: 35),
+// ------------------------------------------------------------
 // ------------------ 8. SCHEDULE MEETING ---------------------
 // ------------------------------------------------------------
 Padding(
@@ -498,7 +542,14 @@ Padding(
           fontWeight: FontWeight.w600,
         ),
       ),
-      Row(
+      InkWell(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScheduleScreen()),
+    );
+  },
+  child:Row(
         children: [
           Text(
             "View All",
@@ -512,6 +563,7 @@ Padding(
           const Icon(Icons.arrow_forward, color: Colors.white70, size: 18),
         ],
       )
+      ),
     ],
   ),
 ),
@@ -551,7 +603,14 @@ Padding(
 
         const SizedBox(height: 20),
 
-        Center(
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ScheduleScreen()),
+            );
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
             decoration: BoxDecoration(
@@ -571,13 +630,14 @@ Padding(
       ],
     ),
   ),
-),
+),   // <<<<<<<<<<<<<<⭐ IMPORTANT: This bracket was missing
 
-const SizedBox(height: 35),
+const SizedBox(height: 30),
+
+
 // ------------------------------------------------------------
 // ------------------- NETWORKING ZONE ------------------------
 // ------------------------------------------------------------
-
 Padding(
   padding: const EdgeInsets.symmetric(horizontal: 20),
   child: Row(
@@ -591,6 +651,15 @@ Padding(
           fontWeight: FontWeight.w600,
         ),
       ),
+       // ---------- VIEW BUTTON ----------
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AiNetworkingScreen()),
+          );
+        },
+        child:
       Row(
         children: [
           Text(
@@ -604,12 +673,14 @@ Padding(
           const Icon(Icons.arrow_forward_ios,
               size: 14, color: Colors.white70),
         ],
-      )
+      ),
+      ),
     ],
   ),
 ),
 
 const SizedBox(height: 15),
+
 
 // ------------------ AI MATCHMAKING CARD -------------------
 
@@ -711,6 +782,15 @@ Padding(
               const SizedBox(height: 15),
 
               // Button
+
+              GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) =>  AiNetworkingScreen()),
+    );
+  },
+  child:
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 22),
@@ -723,6 +803,7 @@ Padding(
                     ],
                   ),
                 ),
+                
                 child: Text(
                   "Complete Profile",
                   style: GoogleFonts.poppins(
@@ -731,6 +812,7 @@ Padding(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+              ),
               ),
             ],
           ),
@@ -777,6 +859,7 @@ Padding(
     ),
   ),
 ),
+    
 
 const SizedBox(height: 30),
 // ------------------------------------------------------------
@@ -795,7 +878,16 @@ Padding(
           fontWeight: FontWeight.w600,
         ),
       ),
-      Row(
+       // 👉 CLICKABLE VIEW ALL
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SpeakersScreen()),
+          );
+        },
+        child: Row(
+      
         children: [
           Text(
             "View All",
@@ -807,6 +899,7 @@ Padding(
           const SizedBox(width: 5),
           const Icon(Icons.arrow_forward, size: 16, color: Colors.white70),
         ],
+      ),
       ),
     ],
   ),
@@ -846,6 +939,7 @@ SizedBox(
     ],
   ),
 ),
+const SizedBox(height: 40),
   
   
 
@@ -917,6 +1011,14 @@ SizedBox(
             ),
 
             const Spacer(),
+            GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ViewSponsorsScreen()),
+    );
+  },
+  child:
 
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 22),
@@ -932,6 +1034,7 @@ SizedBox(
                   fontWeight: FontWeight.w600,
                 ),
               ),
+            ),
             ),
           ],
         ),
@@ -980,6 +1083,14 @@ SizedBox(
             ),
 
             const Spacer(),
+            GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const SponsorNowScreen()),
+    );
+  },
+  child:
 
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 22),
@@ -996,6 +1107,7 @@ SizedBox(
                 ),
               ),
             ),
+            )
           ],
         ),
       ),
@@ -1026,35 +1138,64 @@ Column(
 
     const SizedBox(height: 15),
 
-    // FULL WIDTH ROW
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          infoCard(
-            title: "About TNGSS 2025",
-            subtitle: "Learn more about the event",
-            borderColors: [Colors.blue, Colors.orange],
-          ),
+  // FULL WIDTH ROW
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: Row(
+    crossAxisAlignment: CrossAxisAlignment.start,  // 🔥 Prevent overflow
+    children: [
 
-          infoCard(
-            title: "About StartupTN",
-            subtitle: "Learn more",
-            borderColors: [Colors.cyan, Colors.orange],
-          ),
-        ],
+      // LEFT CARD
+      Expanded(
+         child:GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const CodingRimDetailsScreen()),
+    );
+  },
+        child: infoCard(
+          title: "About CODINGRIM 2025",
+          subtitle: "Learn more about the event",
+          borderColors: [Colors.blue, Colors.orange],
+        ),
+         ),
       ),
-    ),
+
+      const SizedBox(width: 12),
+
+      // RIGHT CARD
+      Expanded(
+        child: GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ZhacommerceDetailsScreen()),
+      );
+    },
+        child: infoCard(
+          title: "About ZHACOMMERCE",
+          subtitle: "Learn more",
+          borderColors: [Colors.cyan, Colors.orange],
+        ),
+      ),
+      ),
+    ],
+  ),
+),
+
+// 🔥 Prevent "Experience Rajapalayam" from sticking too close
+const SizedBox(height: 25),
   ],
+
 ),// ------------------------------------------------------------
-// ------------------ 11. EXPERIENCE COIMBATORE ---------------
+// ------------------ 11. EXPERIENCE RAJAPALAYAM ---------------
 // ------------------------------------------------------------
 
 Padding(
   padding: const EdgeInsets.symmetric(horizontal: 20),
   child: Text(
-    "Experience Coimbatore",
+    "Experience Rajapalayam",
     style: GoogleFonts.poppins(
       color: Colors.white,
       fontSize: 22,
@@ -1073,11 +1214,14 @@ Padding(
       borderRadius: BorderRadius.circular(20),
       gradient: LinearGradient(
         colors: [
+          // ignore: deprecated_member_use
           Colors.white.withOpacity(0.15),
+          // ignore: deprecated_member_use
           Colors.white.withOpacity(0.05),
         ],
       ),
       border: Border.all(
+        // ignore: deprecated_member_use
         color: Colors.white.withOpacity(0.2),
       ),
     ),
@@ -1087,7 +1231,7 @@ Padding(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Discover Coimbatore's Hidden Gems",
+            "Discover Rajapalayam's Hidden Gems",
             style: GoogleFonts.poppins(
               color: Colors.white,
               fontSize: 18,
@@ -1098,7 +1242,7 @@ Padding(
           const SizedBox(height: 6),
 
           Text(
-            "Connect with Coimbatore’s soul through authentic"
+            "Connect with Rajapalayam's soul through authentic"
             " cultural experiences curated by local artisans.",
             style: GoogleFonts.poppins(
               color: Colors.white70,
@@ -1155,6 +1299,14 @@ Padding(
           ),
 
           const SizedBox(height: 18),
+          GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const RajapalayamPlacesScreen()),
+    );
+  },
+  child:
 
           Container(
             width: double.infinity,
@@ -1165,7 +1317,7 @@ Padding(
             ),
             child: Center(
               child: Text(
-                "Explore Coimbatore",
+                "Explore Rajapalayam",
                 style: GoogleFonts.poppins(
                   color: Colors.blueAccent,
                   fontSize: 16,
@@ -1174,23 +1326,21 @@ Padding(
               ),
             ),
           ),
+          ),
 
           const SizedBox(height: 10),
 
           Text(
-            "Note: All activities are curated by our partner and TNGSS holds no responsibility",
+            "Note: All activities are curated by our partner and CODINGRIM holds no responsibility",
             style: GoogleFonts.poppins(
               color: Colors.white38,
               fontSize: 10,
             ),
           ),
-        ],
-      ),
-    ),
-  ),
-),
+          const SizedBox(height: 35),
+       
 
-const SizedBox(height: 35),
+
 
 // --------------------------------------------------------------------------------------------------------------------
 // ----------------------- END OF CONTENT ---------------------------------------------------------------------------
@@ -1200,12 +1350,27 @@ const SizedBox(height: 35),
 
 
 //ithuku mala nama class define panikalam/////................../////////////.........................................
-              ],
-            ),
-          ),
-        ),
+    
+          ]
       ),
-    );
+
+      
+          ),
+        
+      ),
+    ),],
+  ),
+),
+    ),),);
+          
+    
+
+    
+
+
+        
+      
+    
   }
 
   // -------------------------------------------------------------------------
@@ -1382,11 +1547,13 @@ const SizedBox(height: 35),
       ),
     );
   }
-
-  // -------------------------------------------------------------------------
-  // FEATURED EVENT CARD
-  Widget _featuredEventCard() {
-    return Container(
+Widget _featuredEventCard({
+  required VoidCallback onTap,
+  required VoidCallback onViewAllTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
       width: 280,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -1404,7 +1571,6 @@ const SizedBox(height: 35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -1445,13 +1611,9 @@ const SizedBox(height: 35),
 
           const Spacer(),
 
-          Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              decoration: BoxDecoration(
-                color: Colors.white24,
-                borderRadius: BorderRadius.circular(30),
-              ),
+          GestureDetector(
+            onTap: onViewAllTap,
+            child: Center(
               child: Text(
                 "View All",
                 style: GoogleFonts.poppins(
@@ -1464,9 +1626,11 @@ const SizedBox(height: 35),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
 }
+
+
 //SPEAKERS CARD////.........
 Widget speakerCard({
   required String name,
@@ -1588,6 +1752,26 @@ Widget speakerCard({
         const SizedBox(height: 12),
 
         // VIEW DETAILS BUTTON
+     GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => SpeakerDetailsScreen(
+          name: name,
+          title: title,
+          description: description,
+          image: image,
+          tag: tag,
+          isMultipleEvent: isMultipleEvent,
+          countryFlag: countryFlag,
+        ),
+      ),
+    );
+  },
+  child:
+
+
         Container(
           alignment: Alignment.center,
           height: 38,
@@ -1603,6 +1787,7 @@ Widget speakerCard({
               fontWeight: FontWeight.w600,
             ),
           ),
+        ),
         ),
       ],
     ),
@@ -1871,4 +2056,5 @@ Widget footerNavItem(IconData icon, String label, {VoidCallback? onTap}) {
       ],
     ),
   );
+}
 }

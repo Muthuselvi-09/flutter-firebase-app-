@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AnimatedBackground extends StatelessWidget {
+class AnimatedBackground extends StatefulWidget {
   final Widget child;
   final Color bgColor;
 
@@ -11,14 +11,18 @@ class AnimatedBackground extends StatelessWidget {
   });
 
   @override
+  State<AnimatedBackground> createState() => _AnimatedBackgroundState();
+}
+
+class _AnimatedBackgroundState extends State<AnimatedBackground> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor,
-      child: child,
+      color: widget.bgColor,
+      child: widget.child,
     );
   }
 }
-
 
 
 
@@ -212,8 +216,8 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  String name = "Gurubalasundari R";
-  String email = "balasundaricodingrim06@gmail.com";
+  String name = "Govinda Prapakaran";
+  String email = "codingrim06@gmail.com";
   String? profileImage; // later firebase/file path store panna
 
   @override
