@@ -15,9 +15,14 @@ import 'package:event_management2/sponsers screen/view_sponsors_screen.dart';
 import 'package:event_management2/finding screen/codingrim_details_screen.dart';
 import 'package:event_management2/finding screen/ZhacommerceDetailsScreen.dart';
 import 'package:event_management2/place/rajapalayam_places.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import '../notification/notification_screen.dart';
+import '../notification/notification_item.dart';
+import 'package:event_management2/Certificate Preview Screen.dart' ;
+
+
+
 //import '../widgets/slidercard.dart'; 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,14 +31,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   double profileScore = 0.0;
+  
+  List<NotificationItem> notifications = [];
+
+
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-       
- 
 
+    return Scaffold(
 floatingActionButton: footerCenterButton(context),
 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
@@ -44,13 +52,9 @@ bottomNavigationBar: footerNavigationBar(context),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-Color(0xFF020024),
-Color(0xFF090979),
-Color(0xFF00D4FF),
-
-
-
-
+        Color(0xFF000428),
+Color(0xFF004E92),
+Color(0xFF5AE2FF),
 
 
 
@@ -112,20 +116,23 @@ Row(
     ),
 
     SizedBox(width: 16),
-
-    GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const NotificationScreen()),
-        );
-      },
-      child:  Icon(
-        Icons.notifications_none,
-        color: Colors.white,
-        size: 28,
+GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NotificationScreen(
+          notifications: notifications,
+        ),
       ),
-    ),
+    );
+  },
+  child: Icon(
+    Icons.notifications_none,
+    color: Colors.white,
+    size: 28,
+  ),
+),
 
     SizedBox(width: 16),
 
@@ -1373,49 +1380,98 @@ Padding(
     
   }
 
-  // -------------------------------------------------------------------------
-  // FIRST BLUE CARD
-  Widget _promoCard1() {
-    return Container(
-      width: 260,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF2C3EFA), Color(0xFF1A1E9A)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+// -------------------------------------------------------------------------
+// FIRST BLUE CARD
+Widget _promoCard1() {
+  return Container(
+    width: 210, // reduced width
+    margin: const EdgeInsets.symmetric(horizontal: 6),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
+      gradient: const LinearGradient(
+        colors: [Color(0xFF2C3EFA), Color(0xFF1A1E9A)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
-      padding: const EdgeInsets.all(16),
-      child: Text(
-        "You are requested to be seated by the inaugural ceremony...",
-        style: GoogleFonts.poppins(
-          color: Colors.white,
-          fontSize: 14,
-        ),
+    ),
+    padding: const EdgeInsets.all(12), // reduced padding
+    child: Text(
+      "You are requested to be seated by the inaugural ceremony...",
+      style: GoogleFonts.poppins(
+        color: Colors.white,
+        fontSize: 14,
       ),
-    );
-  }
+    ),
+  );
+}
 
-  // -------------------------------------------------------------------------
-  // SECOND RED CARD
-  Widget _promoCard2() {
-    return Container(
-      width: 260,
+// -------------------------------------------------------------------------
+// SECOND RED CARD
+Widget _promoCard2() {
+  return Container(
+    width: 210, // reduced width
+    margin: const EdgeInsets.symmetric(horizontal: 6),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
+      color: Colors.redAccent,
+    ),
+    padding: const EdgeInsets.all(12), // reduced padding
+    child: Text(
+      "Travel Smart to TNGSS with redBus…",
+      style: GoogleFonts.poppins(
+        color: Colors.white,
+        fontSize: 14,
+      ),
+    ),
+  );
+}
+Widget _promoCard3() {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const CertificatePreviewScreen(),
+        ),
+      );
+    },
+    child: Container(
+      width: 210,
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22),
-        color: Colors.redAccent,
+        image: const DecorationImage(
+          image: AssetImage("assets/images/card3banner.png"), // your image here
+          fit: BoxFit.cover, // cover entire container
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      padding: const EdgeInsets.all(16),
       child: Text(
-        "Travel Smart to TNGSS with redBus…",
+        "🏆 Winner Announcement!\nTap to view & download certificate",
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 14,
+          fontWeight: FontWeight.w600,
+          shadows: [
+            const Shadow(
+              blurRadius: 4,
+              color: Colors.black45,
+              offset: Offset(1, 1),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   // -------------------------------------------------------------------------
   // EVENT CARD
