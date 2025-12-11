@@ -16,6 +16,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, // DARK BACKGROUND
       appBar: AppBar(
         title: const Text("My Profile"),
         backgroundColor: Colors.teal,
@@ -29,9 +30,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
               // Full Name
               TextFormField(
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                    labelText: "Full Name",
-                    border: OutlineInputBorder()),
+                  labelText: "Full Name",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  hintText: "Enter your name",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) return "Enter your name";
                   return null;
@@ -41,9 +47,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
               // Email
               TextFormField(
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder()),
+                  labelText: "Email",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  hintText: "Enter your email",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) return "Enter email";
                   return null;
@@ -54,9 +65,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               // Mobile Number
               TextFormField(
                 keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                    labelText: "Mobile Number",
-                    border: OutlineInputBorder()),
+                  labelText: "Mobile Number",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  hintText: "Enter your mobile number",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) return "Enter your mobile";
                   return null;
@@ -66,9 +82,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
               // Date of Birth
               TextFormField(
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                    labelText: "Date of Birth",
-                    border: OutlineInputBorder()),
+                  labelText: "Date of Birth",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  hintText: "DD/MM/YYYY",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) return "Enter DOB";
                   return null;
@@ -78,14 +99,18 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
               // Gender Dropdown
               DropdownButtonFormField(
+                dropdownColor: Colors.black,
                 decoration: const InputDecoration(
-                    labelText: "Gender",
-                    border: OutlineInputBorder()),
+                  labelText: "Gender",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(),
+                ),
+                style: const TextStyle(color: Colors.white),
                 value: gender,
                 items: ["Male", "Female", "Other"]
                     .map((g) => DropdownMenuItem(
                           value: g,
-                          child: Text(g),
+                          child: Text(g, style: const TextStyle(color: Colors.white)),
                         ))
                     .toList(),
                 onChanged: (value) => setState(() => gender = value!),
@@ -94,9 +119,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
               // Education Dropdown
               DropdownButtonFormField(
+                dropdownColor: Colors.black,
                 decoration: const InputDecoration(
-                    labelText: "Education",
-                    border: OutlineInputBorder()),
+                  labelText: "Education",
+                  labelStyle: TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(),
+                ),
+                style: const TextStyle(color: Colors.white),
                 value: education,
                 items: [
                   "Undergraduate",
@@ -107,7 +136,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 ]
                     .map((e) => DropdownMenuItem(
                           value: e,
-                          child: Text(e),
+                          child: Text(e, style: const TextStyle(color: Colors.white)),
                         ))
                     .toList(),
                 onChanged: (value) => setState(() => education = value!),
@@ -117,8 +146,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               // Submit Button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    padding: const EdgeInsets.symmetric(vertical: 14)),
+                  backgroundColor: Colors.teal,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
